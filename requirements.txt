@@ -1,7 +1,6 @@
 # - lists all the dependencies your project may have
 # - a tool like pip can use this file to install your dependencies
 
-pandas
-matplotlib
 Flask==0.12.2
-markdown
+flask-restful==0.3.6
+markdown==2.6.11
