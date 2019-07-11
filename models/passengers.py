@@ -1,5 +1,6 @@
 # Passengers module to wrap all passengers related info
 
+
 class Passenger(object):
     def __init__(self, survived=None, pclass=None, name=None, sex=None,
                  age=None, sibsp=None, parch=None, ticket=None, fare=None, cabin=None, embarked=None):

@@ -3,8 +3,9 @@ from builtins import print
     
 import pandas as pd
 
-def data():
-    #This option made "appearing all columns" work. Was showing fewer columns
+
+def load_data():
+    # This option made "appearing all columns" work. Was showing fewer columns
     pd.set_option('display.expand_frame_repr', False)
     pd.set_option('display.max_rows', 10)
     pd.set_option('display.max_columns', 100)
@@ -13,7 +14,8 @@ def data():
 
     return full_data
 
-def outcomes(data):
+
+def get_outcomes(data):
 
     # nothing yet
     outcomes = data['Survived']
@@ -55,10 +57,11 @@ def predictions_1(data):
     for _, passenger in data.iterrows():
         # Remove the 'pass' statement below
         # and write your prediction conditions here
-        #print (passenger['Sex'])
+        # print (passenger['Sex'])
         predictions.append(passenger['Sex'] == 'female')
     # Return our predictions
     return pd.Series(predictions)
+
 
 def predictions_2(data):
     """ Model with one feature: 
@@ -68,9 +71,9 @@ def predictions_2(data):
     for _, passenger in data.iterrows():
         # Remove the 'pass' statement below
         # and write your prediction conditions here
-        #print (passenger['Sex'])
+        # print (passenger['Sex'])
         predictions.append(passenger['Sex'] == 'female'
-                           or (passenger['Sex'] == 'male' and passenger['Age'] <=10))
+                           or (passenger['Sex'] == 'male' and passenger['Age'] <= 10))
     # Return our predictions
     return pd.Series(predictions)
 
@@ -83,26 +86,29 @@ def predictions_3(data):
     for _, passenger in data.iterrows():
         # Remove the 'pass' statement below
         # and write your prediction conditions here
-        #print (passenger['Sex'])
+        # print (passenger['Sex'])
         predictions.append(passenger['Sex'] == 'female'
-                           or (passenger['Sex'] == 'male' and passenger['Age'] <=10)
+                           or (passenger['Sex'] == 'male' and passenger['Age'] <= 10)
                            )
     # Return our predictions
     return pd.Series(predictions)
 
+
 # Make the predictions
-data = data()
-outcomes = outcomes(data)
+data_g = load_data()
+outcomes_g = get_outcomes(data_g)
+
 
 # Scenario 1
-#predictions = pd.Series(np.ones(5, dtype = int))
-#print(accuracy_score(outcomes[:5], predictions))
+# predictions = pd.Series(np.ones(5, dtype = int))
+# print(accuracy_score(outcomes_g[:5], predictions))
+
 
 # Scenario 2
-#predictions = predictions_2(data)
-predictions = predictions_3(data)
+# predictions = predictions_2(data)
+predictions_g = predictions_3(data_g)
 
 # Predicting how
-print(accuracy_score(outcomes, predictions))
+print(accuracy_score(outcomes_g, predictions_g))
 # Make the predictions
-#vs.survival_stats(data, outcomes, 'Sex')
+# vs.survival_stats(data, outcomes, 'Sex')

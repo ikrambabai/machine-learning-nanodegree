@@ -3,3 +3,5 @@
 
 pandas
 matplotlib
+Flask==0.12.2
+markdown
