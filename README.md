@@ -1,1 +1,1 @@
-# machine-learning-nanodegree
+Ikram's submissions (on a 'standard' python project structure) for Udacity's Nano Degree tests submissions

@@ -2,3 +2,4 @@
 # - a tool like pip can use this file to install your dependencies
 
 pandas
+matplotlib
