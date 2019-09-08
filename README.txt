@@ -1,1 +1,0 @@
-Ikram learns machine learning.
