@@ -3,7 +3,6 @@ import markdown
 import shelve
 from flask import Flask
 from flask import g
-from models import Learning
 from flask_restful import Resource, Api, reqparse
 
 # Create an instance of Flask application
@@ -23,7 +22,7 @@ def index():
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        db = g._database = shelve.open("learning.learning")
+        db = g._database = shelve.open("learn.learn")
     return db
 
 
@@ -38,7 +37,6 @@ class DeviceList(Resource):
     def get(self):
         shelf = get_db()
         keys = list(shelf.keys())
-
         devices = []
 
         for key in keys:

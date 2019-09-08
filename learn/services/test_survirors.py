@@ -1,7 +1,8 @@
 # Import libraries necessary for this project
-from builtins import print
-    
+from learn.model.predictions import Prediction
+
 import pandas as pd
+import numpy as np
 
 
 def load_data():
@@ -38,7 +39,7 @@ def accuracy_score(truth, pred):
 
 
 def predictions_0(data):
-    """ Model with no features. Always predicts a passenger did not survive. """
+    # Model with no features. Always predicts a passenger did not survive.
 
     predictions = []
     for _, passenger in data.iterrows():
@@ -50,9 +51,7 @@ def predictions_0(data):
 
 
 def predictions_1(data):
-    """ Model with one feature: 
-            - Predict a passenger survived if they are female. """
-
+    # Model with one feature: Predict a passenger survived if they are female.
     predictions = []
     for _, passenger in data.iterrows():
         # Remove the 'pass' statement below
@@ -64,8 +63,7 @@ def predictions_1(data):
 
 
 def predictions_2(data):
-    """ Model with one feature: 
-            - Predict a passenger survived if they are female. """
+    # Model with one feature: Predict a passenger survived if they are female or make with age <= 10
 
     predictions = []
     for _, passenger in data.iterrows():
@@ -79,8 +77,7 @@ def predictions_2(data):
 
 
 def predictions_3(data):
-    """ Model with one feature: 
-            - Predict a passenger survived if they are female. """
+    # Model with one feature: Predict a passenger survived if they are female.
 
     predictions = []
     for _, passenger in data.iterrows():
@@ -88,8 +85,7 @@ def predictions_3(data):
         # and write your prediction conditions here
         # print (passenger['Sex'])
         predictions.append(passenger['Sex'] == 'female'
-                           or (passenger['Sex'] == 'male' and passenger['Age'] <= 10)
-                           )
+                           or (passenger['Sex'] == 'male' and passenger['Age'] <= 10))
     # Return our predictions
     return pd.Series(predictions)
 
@@ -103,12 +99,22 @@ outcomes_g = get_outcomes(data_g)
 # predictions = pd.Series(np.ones(5, dtype = int))
 # print(accuracy_score(outcomes_g[:5], predictions))
 
-
 # Scenario 2
 # predictions = predictions_2(data)
-predictions_g = predictions_3(data_g)
+# predictions_g = predictions_2(data_g)
+# print(accuracy_score(outcomes_g, predictions_g))
 
-# Predicting how
-print(accuracy_score(outcomes_g, predictions_g))
+# scenario 3
+# print(accuracy_score(outcomes_g, predictions_g))
 # Make the predictions
 # vs.survival_stats(data, outcomes, 'Sex')
+
+# Scenario special
+def condition(passenger):
+    return passenger['Sex'] == 'female' or (passenger['Sex'] == 'male' and passenger['Age'] <= 10)
+
+
+prediction = Prediction('scenario1', condition)
+predictions = prediction.predict(data_g)
+print(accuracy_score(outcomes_g[:5], predictions))
+
