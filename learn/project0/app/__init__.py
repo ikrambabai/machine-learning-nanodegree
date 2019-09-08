@@ -25,32 +25,47 @@ class PredictionList(Resource):
         """ load data """
         data = load_data()
         truth, data = separate_truth_from_data(data)
+        all_scenarios = []
 
-        """ scenario1 """
-        predictor = Predictor('Top five in loaded file survived', lambda ps: 1)
-        predictor.predict(data[:5])
-        scenario1 = predictor.accuracy_score(truth[:5])
-
-        """ scenario2 """
-        predictor = Predictor('Sex = female', lambda ps: ps['Sex'] == 'female')
+        """ Question 1: What are the chances none survived? """
+        predictor = Predictor('Question 1: What are the chances none survived?', lambda ps: 0)
         predictor.predict(data)
-        scenario2 = predictor.accuracy_score(truth)
+        scenario = predictor.accuracy_score(truth)
+        all_scenarios.append(scenario)
 
-        """ scenario3 """
-        predictor = Predictor('Sex = female or male but with age <=10',
-                              lambda ps: ps['Sex'] == 'female' or (ps['Sex'] == 'male' and ps['Age'] <= 10))
+        """ Question2: Accuracy that only females survived? """
+        predictor = Predictor('Question 2: Accuracy that only females survived?', lambda ps: ps['Sex'] == 'Female')
         predictor.predict(data)
-        scenario3 = predictor.accuracy_score(truth)
+        scenario = predictor.accuracy_score(truth)
+        all_scenarios.append(scenario)
 
-        """ scenario3 (Question1) """
-        predictor = Predictor('None Survived', lambda ps: 0)
+        """ Question3: Accuracy that all female passengers and male under the age 10 survived? """
+        predictor = Predictor('Question 3: Accuracy that all female passengers and male under the age 10 survived?',
+                              lambda ps: (ps['Sex'] == 'female' or (ps['Sex'] == 'male' and ps['Age'] <= 10)))
+
         predictor.predict(data)
-        scenario4 = predictor.accuracy_score(truth)
+        scenario = predictor.accuracy_score(truth)
+        all_scenarios.append(scenario)
 
-        all_scenarios = [scenario1, scenario2, scenario3, scenario4]
+        """ Question4: Accuracy that all female passengers and male under the age 10 survived? """
+        predictor = Predictor('Question 4: What rule can get us a survival accuracy of 80 or more?',
+                              lambda ps: (
+                                             (ps['Sex'] == 'female' and ps['Pclass'] != 3)
+                                             or (ps['Sex'] == 'female' and ps['Pclass'] == 3 and (ps['Parch'] == 0 or ps['Parch'] == 1))
+                                             or (ps['Sex'] == 'male' and ps['Age'] <= 10)
+                              ),
+                              steps="The steps I followed to get > 80% accuracy were either of the three rules as "
+                                    "follows (after looking at data in spreadsheet and the vs module iPython notebook)"
+                                    " a). Either all females that weren't in class 3"
+                                    " b). Or, all females in class 3, but with none or just 1 parent."
+                                    " c). Or any male with the age less than or equal to 10.")
 
-        return {'message': 'Success', 'data': all_scenarios}, 200
+        predictor.predict(data)
+        scenario = predictor.accuracy_score(truth)
+        all_scenarios.append(scenario)
+
+        return {'project0-questions': all_scenarios}, 200
 
 
-api.add_resource(PredictionList, "/learning")
+api.add_resource(PredictionList, "/project0")
 
