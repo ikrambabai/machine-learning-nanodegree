@@ -20,5 +20,5 @@ predictor.accuracy_score(truth)
 predictor = Predictor('Sex = female or male but with age <=10',
                       lambda ps: ps['Sex'] == 'female' or (ps['Sex'] == 'male' and ps['Age'] <= 10))
 predictor.predict(data)
-predictor.accuracy_score(truth)
+print(predictor.accuracy_score(truth))
 

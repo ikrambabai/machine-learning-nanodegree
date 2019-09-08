@@ -16,8 +16,8 @@ class Predictor(object):
     def accuracy_score(self, truth):
         """ displays accuracy score for input truth and predictions. """
         if len(truth) == len(self.predictions):
-            print("For scenario '{}', the predictions have an accuracy of {:.2f}%."
-                  .format(self.name, (truth == self.predictions).mean() * 100))
+            s = ((truth == self.predictions).mean() * 100).__round__(2)
+            return {"scenario": self.name, "accuracy": s.__str__() + '%', "message": "success"}
 
         else:
-            print("The # of predictions does not match number of outcomes!")
+            return {"name": self.name, "accuracy": -1, "status": "error"}
