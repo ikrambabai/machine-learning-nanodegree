@@ -2,9 +2,9 @@ import os
 import markdown
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
-from learn.project0.services import load_data
-from learn.project0.services import separate_truth_from_data
-from learn.project0.models.predictor import Predictor
+from learn.titanic.services import load_data
+from learn.titanic.services import separate_truth_from_data
+from learn.models.predictor import Predictor
 
 # Create an instance of Flask application
 app = Flask(__name__)
@@ -64,8 +64,8 @@ class PredictionList(Resource):
         scenario = predictor.accuracy_score(truth)
         all_scenarios.append(scenario)
 
-        return {'project0-questions': all_scenarios}, 200
+        return {'titanic-questions': all_scenarios}, 200
 
 
-api.add_resource(PredictionList, "/project0")
+api.add_resource(PredictionList, "/titanic")
 
