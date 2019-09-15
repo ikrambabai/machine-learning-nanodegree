@@ -1,0 +1,178 @@
+Lesson2: 
+Intro:
+  Learn from Past experience - Data is past experience.
+
+Concept Areas:
+
+  Classification Algorithms and Structures:
+
+  Decision Trees:
+	    Notion of Decision Tree based on Data 
+	      (example: Gender, Age - which one is more decisive in making the decision)
+
+  Naive Bayes Algorithm: 
+      Finding out the chances of something, given something is known in the data:
+
+      Examples: Analyze emails to find out which one is Spam 
+        20 out of 25 emails we got containing the word cheap were spam - so if an email contains the word cheap, there is 80% chance, it will be span
+        Other features in an email that will help
+        Spelling Mistakes --> ex: 70% change its Spam
+        Title-less Emails --> 95% chance it is span
+        etc ... more features
+
+  Gradient Descent: 
+
+    Minimize the error -- descending a mountain example
+
+  Linear Regression: Draw a line that best fits all the data
+
+    Example: Housing prices - predict the price of a medium house given prices of low and high houses
+      1. Get data of all houses and plot them on a graph (x: house size: y: price)
+	  2. Draw  line that best cuts the data 'nicely'
+	  3. Pick a price (a point on y axis) by going straight the size (x-axis) you are looking for. This value of y is your prediction
+      4. ThinkOf: Linear Regression as a painter: Draw a line.	  
+
+  Logistic Regression:
+    Draw a line that best cuts the data - with most of points above the line belonging to one category and below to to the other
+	Def: This line is your Model
+	  1. Draw a random line
+      2. Find out the # of Errors in the line. Def: Error is the # of mis-qualified points above and below the line combined
+	  3. Move the line around in a direction so that the errors reduce - using Gradient Descent
+	  4. In reality, the # of error is not what we are trying to minimize - its the log-loss function that we are minimizing
+	  5. Error function --> Give more weights to the error points than the normal points 
+	       More Error = wt1 + wt2 + WT3 + WT4 + wt5 + wt6
+		   Less Error = wt1 + wt2 + wt3 + WT4 + wt5 + wt6
+		   No Error = wt1 + wt2 + wt3 + wt4 + wt5 + wt6
+
+  Linear Vs. Logistic Regression 
+    Difference: https://stackoverflow.com/questions/12146914/what-is-the-difference-between-linear-regression-and-logistic-regression
+	
+
+  Support Vector Machine:
+  
+    If Multiple lines correctly separate two data sets, which one of the two lines are better?
+    1. Draw the lines two lines
+    2. Find out the nearer (father ones won't matter) points from the line.
+	3. Find out all distances from each of the two lines to these nearest points.
+	4. Find out for each line the minimum of all distances.
+	5. The line, who value from step 4 (i.e. the minimum of all distances) is more than the other is the better line that separates the data better
+	6. This method is called Support Vector - (from the fact that the points closer to the line are the 'Support')
+	Takeaway: Maximize the minimum values (again, through Gradient Descent -- btw, there are other methods too - not just Gradient Descent)
+
+
+  Neural Networks:
+
+    A student with 1 in the Grades and 9 in the test will be accepted if we created the model by one line - Not good.
+    The Idea: A line may not separate the data well in all cases - So may be use a Circle - or two lines?  
+
+    1. One line many not cut the data - use two lines (or more)
+    2. Ask questions - is the point you are interested in lies in the area you want? 
+       Ex: Is the student with score (1, 9) going to get admitted to the school?
+    3. Cut the data with two lines
+	4. For each of the newly found 4 - quadrants - ask, does the point we are interested lies above the line?
+	5. Out of 4 quadrants, you will get answer (yes, yes) to only one quadrant.
+	
+          Tests
+        	^
+        	|          \ 
+        	|           \
+        	|     X      \    
+        	|  (yes, no)  \
+        	|	           \              X
+        	|               \            (yes, yes)  
+        	| -----------------------------------------
+        	|                 \
+        	|                  \      
+        	|                   \         
+        	|                    \              
+        	|     X (no, no)      \    X (no, no)  
+             --------------------------------------------> Grades
+
+	6. So we are looking at AND gate - thats the only operation that will end us up in the quadrant where studens can get admitted = top right.
+	7. For a neural network, we have 4 nodes now in two columns each feeding their input to
+
+  Kernel Trick
+    Problem: What if points from both classes lie in an almost straight line? Line won't cut them - 
+	Ideas: 
+	  a. Idea 1: Remain in the same plain - but use a curve to separate the classes
+	  b. Idea 2: Think of points in space (3-dimensional rather than on a plane i.e. ) and raise the points from one class to a higher plane so the classes are separated
+    
+	Idea 1:
+	  Think of a function that separates the two classes.
+	  Ex: if the points were (0,3), (1,2), (2,1) and (3, 0) - points first and last belong to class O, the other two belong to class X
+
+          Tests
+        	^
+        	| O(3.0) 
+        	|\ 
+        	| \
+        	|  \
+        	|   \ X(1,2)
+        	|    \
+        	|     \
+        	|      \
+        	|       \ X(2,1)
+        	|        \
+        	|         \
+        	|          \ O(0,3)
+             --------------------------------------------> Grades
+	    
+		Between (x+y), xy and x^2, xy best separates the two classes (X and O) - Fill in a table and see.
+		The function xy is the magic function that separates the two classes nicely.
+		
+		for O's, it outputs a 0 xy = 0 and 
+		for X's, it outputs a 2 xy = 2 
+		What separates xy = 0 and xy = 2? A one. So xy = 1 will separate the two classes out. i.e y = 1/x the hyperbola is our answer to separation
+	
+	Idea 2:	
+	  Think of 3-dimensional space - point all these points on the plane - you will have O's nicely separated out from the X's
+	  (x, y) --> (x, y, xy)
+	  
+	  (0,3) -->  (0, 3, 0)
+	  (1,2) -->  (1, 2, 2)
+	  (2,1) -->  (2, 1, 2)
+	  (3, 0) --> (3, 0, 0)
+	  
+	  Visualize in 3-dimensional space - you wil see the separation
+	  
+	Recap: 
+	  Logistic Regression: A ninja that cuts your data to separate the classes off.
+	  Support Vector Machines: A ninja just more careful with the support it gets from the closest supporting points
+	  Neural Networks: A team of Ninjas who separates the classes of data cut through multiple cuts
+	  Kernel Trick: A confused Ninja - who sees apples and oranges together first - but then raise apples up the space to seaprate from oranges	
+	
+    Exercise:
+      How will you solve the XOR problem? Which of the fourth algorithms would you use to separate out your data? (Can have more than one solutions)	
+	
+    K-Means Clustering:
+      You know how many clusters in advance - you need to center the serving center closest to them starting from a totally random placement
+
+    Hierarchical Clustering
+      Problem: What if you do not know (in advance) how many clusters you will endup with?	
+	  Idea: Form clusters automatically stopping ony if the clusters are no more closer than a pre-determined distance
+	  Method: 
+			1. Start with pairs - put all the closest nodes in pairs until you endput having no more passible pairs.
+            2. Start adding the remaining unparied or lone nodes to the closet pairs forming clusters over the plane
+            3. combine two clusters if their nearest homes fall in the pre-determined distance you think clustering should stop at
+			4. Keep doing until no clusters are closer to eath other less than the pre-determined distance
+			5. Thats how you endup having clusters when you didn't know how many clusters to start with - Hierarchical clustering
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	each node in the next columns
+	8. The two nodes in the next columns do and AND operation - spitting their output to a third column with one Node
+
+

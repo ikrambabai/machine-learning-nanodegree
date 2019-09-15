@@ -1,0 +1,27 @@
+-----------------------------------------------------------------------------------------------------------------------------------------
+About Projects:
+
+	1. Pandas and Numpy:
+	     Use pandas and numpy to analyze data of passengers on Titanic and predict their survival
+
+	2. Scikit Learn and Regression:
+	     Use Scikit Learn and Regression to learn / predict the real prizing of houses in Boston
+		 Will build an optimized model to predict the housing prices.
+
+	3. Sup Learning Projects:
+		 Identify a classification model to best predict potential donors for your charity.
+		 Use various classification models and train them for quality
+		
+	4. Unsupervised Learning Project:
+         Data for customers and learn from it using several unsupervised learning techniques
+		 
+	5. Project on Deep and Reinforcement Learning:
+		 Build convolution in neural network to predict dog breed from images ... wow
+		 Also, if a picture of Human is provided, the algorithm will tell which breed of the dog resembles that Human the most :)
+		 Pretrainging course
+		 
+		 Deep Learning Reinforcement Techniques to build a simulated quadcopter that learns how to take off, hover and land by itself
+		 Bonus: Totally autonomous project that can fly on its own from point A to point B
+		 
+	6. Capstone Project: Distinguish yourself: Your own project (Model, Data and Procedures)
+	

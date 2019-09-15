@@ -1,0 +1,38 @@
+Part One - Basics:
+1. Introduction
+2. Model Evaluation and Validation
+3. Supervised Learning
+
+Part Two - Advance:
+4. Deep Learning
+5. Unsupervised Learning
+6. Reinforced Learning
+7. Machine Learning Capstone
+
+---- Detailed ----
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+1. Main Algos (Sup, Usup)
+2. Techniques to put models well
+3. What ML Model .. test and train Models
+   Work with challenges such as Overfitting and Underfitting your model
+
+4. Sup Learning Algorithms
+   What is it about: all related to predicting a label
+   Main Algorithms
+      Decision Trees 
+      Logistic Regression
+      Support Vector Machines
+      Naive Baise
+      Neural Networks
+   
+5. Usupervised Learning algorithms 
+   Where: 
+		involving clustering and dimensionality reduction
+   What about: 
+     All about training an agent to make optimal decisions instead of predicting a label (we find out the properties about it)
+     Used when data comes with no labels 
+
+6. Part TT: Deep Laering / Reinforcement learnign
+
+7. Deep Neural Learning

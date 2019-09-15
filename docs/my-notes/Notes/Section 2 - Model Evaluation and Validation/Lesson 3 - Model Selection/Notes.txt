@@ -1,0 +1,213 @@
+Medical - Potential Patient (Sick/Healthy) Diagnosed Sick or Healty
+  -- True Positive, True Negative, False Postive, False Negative
+  -- i.e. The Confusion Metrics
+
+Accuracy:
+  --> Generic Formula (Correctly Diagnosed / Total)
+  -- Doesn't always make sense though (Medical Model vs Spam Email Model)
+	 --> Medical case: Make sure all sicket patients are diagnosed, not matter if we incorrectly diagnose healthy as sick while doing so. But we wont miss a sick patient.
+	     Correct Question for Model: Out of all patients diagnosed, find those which were diagnosed as sick (accurately or not).
+		 Write interm of FP,FN etc here
+		 
+	 --> Span Email Detector: Make sure good emails never go to Span folder and get deleted - no matter even if some spam emails made their way to Inbox. Inconvinient, but at least my good emails are not lost.
+	     Correct Question for Model: Out of all the emails receive, how many were CORRECTLY marked as NOT SPAM
+		 Write interm of FP,FN etc here
+		 
+	 --> So th genric formula cannot be used for both cases 
+	 --> So whats medical case model's accuracy formula? What abotu Spam email detector one?
+	 
+  
+
+Accuracy <------------------------------------> Recal
+
+F1 Scores --> 2(precition.accuracy)/precition+accuracy
+In the center of accuracy an recall
+
+F(beta) Scores (1, 0.5, 2 etc) --> (1 + beta_squared)(precition.recall)/((beta_squred*precision) + recall)
+Characteristic: Gives the avarage value - but gets low when either Accuracy or Recall is low
+
+Pick Fbeta that fits your needs (F0.25, F0.5, F8 etc)
+
+------------------------------------------ Lesson 3 -------------------
+Golden Rule:
+  -- Thou Shalt never use your test data for training. You do no touch your test data until the very end when testing your model.
+
+Mistakes in life - two types
+  -- Killing Godzilla with a flys swatter (makki maar)
+     Underfitting:
+       Took generic - 
+       doesn't do good on the Training set. But can make mistakes in prediction
+       Error due to bias
+  -- Killing a fly with a Bazooka
+     Overfitting:
+       Took specific - cannot generlized well
+       Does good on the training set - but makes mistakes in prediction - tends to memorize intead of learning
+       Errors due to variance
+
+Model Complexity Graphs
+  -- High Bias: Does not fit the data well. Makes Training errors - but may give better results that overfitting / High variance. Linear Model
+  -- High Variance: Fits data well, but wont generlize the data enough: Ex: Polynomial of degree 6 may be	
+
+   -- Start plotting training and testing errors. High variance gives more testing errors than training. High Bias gives more traiging errors than testing.
+   -- Start plotting the errors on a graph for linear, polynomial with degree2, 3 and 6. Pick the model with training and testing erros being the lowest and closest
+
+  -- So neither linear or too complex polynomial will do - may be somwhere in between, a good polynomial exists - one with degree two.
+
+  -- Stop: We may have broke then golden rule above while making a decision about our model. In the above case, we decided that our models were good/bad based on testing data
+
+Cross Validation:
+  -- So how do we make a good decision about our model without using our Testing data? -- Answer: Cross Validation Set.
+  -- Previously: Data --> (traning data + testing data)
+     Now: Data --> (Training Data + Cross Validation Data + Testing Data)
+
+k-Fold cross-validation
+  -- We may be throwing away data when doing cross validation
+  -- Break our data in k buckets - train the model k times - each time using a different bucket to train
+  -- kFold(12,3)
+  -- kFold(12, 3, shufle=True)
+
+Learning Curves:
+  -- Linear: High bias
+  -- Just right: Degree 2 poly
+  -- High Varaince: Degree 6 ... overfits
+
+  -- Training a High Bias linear model.
+     -- Summary: With more samples, the training errors will increase, but cross validation erros will come down.
+
+  -- Training a Just right Degree 2 parabola
+     -- Same but converge to a much better (lower error) points
+
+  -- Training a Just right Degree 2 parabola
+     -- With increse in sample size, thet traing doesn't get too much error and the cross-validation error doesn't lower down alot either. So the convergance doesn happen
+
+Detecting Ovefitting and Underfitting
+  -- See graphs and find out whats overfittig, what's underfitting and whats just right.
+  
+Grid Search
+  -- Summary of steps so far:
+     -- Step1: Divide your data in (train, cv-data and test)
+     -- Step2: Pick a bunch of models and 
+	 -- Step3: Traing them with the training data
+	 -- Step4: Pick the best of these models using cross validation data
+	 -- Step5: Finally test, the data with test data to make sure the model we picked is good.
+	 
+  -- Example: Let's traing a logistic regression model - apply above steps on it.
+     -- Step1: ok
+	 -- Step2: Pick a bunch of models - let say Degree1, degree2, degree3 and degree4
+	 -- Step3: Train these models with training data to find out the slopes and coeffients of the polynomial etc.
+	 -- Step4: Use the cross-validation data to (say calculate the F1 scores of each of the models) - pick the model with the highest F1 score.
+	 -- Step5: Use the test data on the final model we picked to make sure our model is good.
+	 
+	 The parameters to the algorithm in this case are the coeffients of the polynomial
+	 The degree of the polynomial is like a meta parameter - we call them 'hyper' parameters.
+
+  -- Another Example: Training a decision tree:
+     Question: What are the hyper paramters? 
+	           Depth is one (1, 2, 3 etc)
+			   We train a bunch of Decision Trees for hyper parameter of 1, 2, 3, and 4 (depth of the three).
+			   The parameter of the algorithm will then be thresholds in the leaves and nodes etc.
+	 Step1: ok
+	 Step2: Pick decisions trees with various depths each constituting a differen model
+	 Step3: Train the models and assign F1 scores to each tree.
+	 Step4: Pick the model with highest F1 score.
+	 Step5: Validate the picked modle is good with the help of test data.
+
+  -- But, what if the hyper parameter for an algorithm that are more than 1? 
+	 For example, for a SVM (Scalar vector machine), the hyper paramas will be the Kernel (linear, polynomial etc) and the gamma (small, big) value.  
+	 -- How will you pick the best model between two hyper parameters (SVM case - kernal and gamma?)
+	 -- Answer: Grid Search (or Grid Search Validation) - Just list all the possibilities on models and pick the best one.
+	 
+	Step1: ok
+	Step2: Pick 6 models 
+	 
+			(kernal=linear, gamma = 0.1) 
+			(kernal=linear, gamma = 1)
+			(kernal=linear, gamma = 10)
+	 
+			(kernal=polynomial, gamma = 0.1) 
+			(kernal=polynomial, gamma = 1)
+			(kernal=polynomial, gamma = 10)
+			
+	 Step3: Training and findout the F1 scores
+
+			 --------------------------------------------------------------------
+			|    \ kernal |        Linear         |         Polynomial           |  
+			|gamma\ 	  | 					  |                              |
+			|------\-------------------------------------------------------------
+			|             |						  |                              |
+			|   0.1       |    <a nice graph>     |       <a nice graph>         |  
+			|	          |    F1 score = .5      |          F1 Score .2         |  
+			|--------------------------------------------------------------------
+			|             |                       |                              |  
+			|   1         |     <a nice graph>    |      <a nice graph>          |       
+			|	          |     F1 score = .8     |       F1 score = .4          |
+			|--------------------------------------------------------------------
+			|             |                       |                              |  
+			|   10        |     <a nice graph>    |      <a nice graph>          |       
+			|	          |     F1 score = .5     |       F1 score = .5          |  
+ 			 --------------------------------------------------------------------
+	        Note: It is advised to pick next values of gamma so that the its exponentially increasing.
+	 
+	Step4: Pick the model with highest F1 score (using Grid search above as we have multiple hyper parameters)
+	        Best one the models is the one with Kernal=linear and gamma=1 having F1 score of .8
+	Step5: Validate that the picked model was good using the testing data
+	 
+	 
+	For a DecisionTree, we can do like below - roughly.
+	
+	from sklearn.model_selection import GridSearchCV
+	parameters = {'max_depth':[1, 3, 5, 7]}
+
+	from sklearn.metrics import make_scorer
+	from sklearn.metrics import f1_score
+	scorer = make_scorer(f1_score)
+
+	# Create the object.
+	grid_obj = GridSearchCV(clf, parameters, scoring=scorer)
+	# Fit the data
+	grid_fit = grid_obj.fit(X, y)
+
+
+	best_clf = grid_fit.best_estimator_
+
+	   
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
