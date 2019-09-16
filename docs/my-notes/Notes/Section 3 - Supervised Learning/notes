@@ -1,0 +1,34 @@
+     Predictive Machine Learning
+       /                    \
+	  /                      \
+	 /                        \
+	/                          \ 
+  clasification              regression
+(quetions of form yes/no)    (questions of form: how much/how many etc.)
+
+
+Linear Regression:
+  y = w1x + w2
+    Data Points want the line come close to it.
+    Move line up and down (play with w2)
+    Rotate line (plan with w1)
+	for a point (p, q) use 
+	y = (w1+p)x + w2+1 (we added 1 to the y-intercept and p to the slope)
+	
+	The reason p is there - is very useful - for negative numbers (number in 4th quardant e.g), the line rotates in clock wise (reverse) instead of anti-clock wise. powerful.
+	
+  Absolute trick: 
+	But this may endup in making big steps
+	Use Leanring rate, alpha
+	Instead of adding 1 to the y-intercept and p to the slope, we muliple w1 with alpha and add it to w2
+	y = (w1 + p*aplha)x + w2+1*aplha
+  
+  Square Trick - with extra gravy
+    Add q to the above discussion too. 
+    So for point (p, q) - the vertical distnace from this point to the line given the line point is (p, q') is q-q'. Multiply this to the alpha in above formula. 
+	y = (w1 + p*aplha*(q-q'))x + w2+1*aplha*(q-q')
+  
+  Gradient Descent:
+     wi = wi - derivate of error w.r.t i?
+  Mean Absolute Error 
+  
