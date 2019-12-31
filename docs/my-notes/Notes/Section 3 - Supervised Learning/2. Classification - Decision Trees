@@ -1,0 +1,36 @@
+B.  Classification algorithms (yes/no type).
+------------------------- C. Decision Trees ------------------------------
+Perceptron: Building block of Neural network - Addresses questions like A student will be accepted or not;
+An object is a pedistrian or not. etc.
+
+  |    (x,y)        o
+  |     o              o
+  |           o
+  |   o
+  |  .........................
+  |
+  |______________________________________
+       Trick (Absolute / Squared)
+
+
+Perception Algorithms
+Talking strictly about Classification problems now. Classification --> yes/no type questions
+Term: we can 'eyeball' it (if a student passed/failed) but computer cannot.
+
+#TODO:
+Practice AND, OR  and the elusive XOR neural networks on paper.
+
+Which feature describes the data best. See drawings in notebook
+See quizzes done in book
+Decisions trees can answer questions of yes/no as well as threshold based questions ... see done in notebook.
+
+Entropy: - p1*log_base2(p1) - p2*log_base2(p2) - .... pn*log_base2(pn)
+Example:
+  8 red, 3 blue, 2 yellow balls entropy will be -8.0/13*math.log(8.0/13, 2) -
+                                                3.0/13*math.log(3.0/13, 2) - 2.0/13 * math.log(2.0/13, 2)
+
+Large depth very often causes overfitting, since a tree that is too deep, can memorize the data. Small depth can result
+in a very simple model, which may cause underfitting. Small minimum samples per split may result in a complicated,
+highly branched tree, which can mean the model has memorized the data, or in other words, overfit. Large minimum samples
+may result in the tree not having enough flexibility to get built, and may result in underfitting.
+

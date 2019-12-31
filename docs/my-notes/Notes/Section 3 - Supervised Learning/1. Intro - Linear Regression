@@ -1,0 +1,188 @@
+     Predictive Machine Learning
+       /                     \
+	  /                       \
+	 /                         \
+	/                           \
+  B. classification               A. regression
+(questions of form yes/no)      (questions of form: how much/how many etc.)
+
+------------------------- A. Regressions ------------------------------
+Regressions Tricks and Techniques.
+   1.1. Absolute Trick
+   1.2. Square Trick.
+   1.3. Minimize, Mean Absolute Error(MAE) and Mean Square Error(MSE).
+   1.4. Relate MAE and MSE with Gradient Descent.
+   1.4. Higher Dimension (line vs. planes)
+   1.5. Polynomial Regression (lines vs. curves).
+
+  Linear Regression:
+  y = w1x + w2
+    Data Points want the line come close to it.
+    Move line up and down (play with w2)
+    Rotate line (plan with w1)
+
+	So, for a given point (p, q)
+
+	=> y = (w1+p)x + w2+1 (we added 1 to the y-intercept and p to the slope)
+
+	The reason p is there - is very useful - for negative numbers (number in 4th quadrant e.g),
+	the line rotates in clock wise (reverse) instead of anti-clock wise. Beautiful.
+
+	TODO: Ikram
+	**A re-read of the note above after 6 months doesn't really click well on how it helps with negative numbers. Should
+	elaborate more on this.
+
+  Absolute trick:
+	But this may end-up in making big steps
+	Use "Learning rate", "alpha"
+	Instead of adding '1' to the y-intercept and p to the slope, we multiply w1 with alpha and add it to w2. Similarly
+	we multiply p with alpha before adding it up with w1.
+
+	=> y = (w1 + p*alpha)x + w2 + 1*alpha
+
+  Square Trick (with extra gravy):
+    The idea here is to involve the role of q as well to the absolute trick and discussion above too.
+    So, for point (p, q), the vertical distance from this point to the line given the line point is (p, q') is q-q'.
+    Now, multiply this to the alpha in above formula.
+
+	y = (w1 + p*alpha* (q-q') )x + w2+ 1*alpha* (q-q')
+
+	Notice: here we get something for free. If the point we are making the line close is below the line instead of
+	above, q-q' will be a negative number so the slope of the line 'goes down' essentially making the line move
+	downwards instead of upwards. Cool. So this trick, unlike the absolute trick, takes care of points below and
+	above the line. We do not have to have two rules like we would for absolute trick.
+
+  The idea:
+  Minimize Mean Absolute Error --> MAE
+  Minimize Mean Square Error --> MSE
+
+  Gradient Descent:
+    Suppose you are on top of a mountain called Mount Rainierror (Raini'error' signifying the fact that the higher on
+    the mountain you are, the higher the error). The idea is to descent down the mountain and minimize the error.
+    The close you are to the ground, the lesser the error is. On each step down the mountain, you have multiple choices
+    of the best way the 'error' (hight from the ground) will decrease the most.
+
+    Graphically, suppose you are on top of the error graph in the plot below and you want to come down the slope. The
+    plot here is two-dimensional (in reality it will have higher planes).
+
+   Error
+    |     .You          .                       ....... => Error function
+    |     .             .                       -----> => negative gradient of function w.r.t. weights
+    |    |.            .
+    |    |.           .
+    |    V .         .
+    |        .  .  .
+    |______________________________ Weights
+
+    The idea is to take the gradient (or derivative) of the error function with respect to weights. This gradient points
+    to a direction where the function increases the most - therefore, the negative of this gradient will point in a
+    direction where the function decreases the most.
+
+    wi = wi - alpha* d/dwi (Error) => Notice we are multiplying the gradient with learning rate alpha to control the
+    speed of descent.
+
+    On the left-hand side below, we like the line (....) to move closer to all the points(o) so that the error (absolute
+    or squared - whichever) is minimized illustrated on the right-hand side. The closer the prediction line comes to the
+    lines, the more descent we make down the error function on the right-hand side.
+
+                                                                       Error
+    |    (x,y)        o                                                  |     .You          .
+    |     o           |   o                                              |     .             .
+    |     |      o    |   |                                              |    |.            .
+    |   o |      |    |   |                                              |    |.           .
+    |  .|.|......|....|...|..........                                    |    V .         .
+    |                                                                    |        .  .  .
+    |______________________________________                              |______________________________ Weights
+
+    MAE = 1/m * (Sum(|y-y'|))
+    MSE = 1/2m * (Sum(square(y-y'))) (notice the extra half (2 in the denominator) some extra convenience coming later.
+
+    MAE vs MSE:
+      1. MAE:
+      Three lines passing through 4 data points.
+	  Which one of the 3 lines will give lowest value for MAE?
+	    Answer: All three give same error.
+	  2. MSE
+	  Which one of the 3 lines will give lowest value for MSE?
+	    Line in the middle gives least MSE.
+      Looks like MSE is a better choice.
+
+    Tricks vs. Error Functions:
+      We have covered two algorithms so far, one that works on the 'Tricks' (Absolute or Squared) and another that works
+      on the 'Error Functions' (MAE and MSE). But if you look carefully (and do some work on the paper), the algo that
+      works on 'Tricks' basically is the same as that works on the 'Error functions'.
+
+                                                                         Error
+      |    (x,y)        o                                                  |     .You          .
+      |     o           |   o                                              |     .             .
+      |     |      o    |   |                                              |    |.            .
+      |   o |      |    |   |                                              |    |.           .
+      |  .|.|......|....|...|..........                                    |    V .         .
+      |                                                                    |        .  .  .
+      |______________________________________                              |______________________________ Weights
+           Trick (Absolute / Squared)                                             (Error Function)
+
+
+      i.e. when you minimize the Absolute Error, we basically are using a Gradient Descent step. This Gradient Descent
+      step is exactly the same thing as Abslute Trick. Like wise of the Squared trick - minimizing the squared trick is
+      exactly the same as solving a gradient descent step. So in summary, minimizing MSE or MSE with Gradient descent is
+      same as Absolute and Square trick.
+
+      See work on derivatives in notebook on how to derivate Error w.r.t w1 and w2 where y = w1.x + w2
+      and Error = 1/2 square(y-y')
+
+    "Fit the model" means picking up the solution (line in our case) that has the least of errors.
+       Example:
+         import pandas as pd
+		 from sklearn.linear_model import LinearRegression
+
+		 bmi_life_data = pd.read_csv("bmi_and_life_expectancy.csv")
+
+		 bmi_life_model = LinearRegression()
+		 bmi_life_model.fit(bmi_life_data[['BMI']], bmi_life_data[['Life expectancy']])
+
+	     laos_life_exp = bmi_life_model.predict(21.07931)
+ 	     about 60 years prediction.
+
+    Higher Dimensions (Line Vs. Plane):
+      So far our linear regression equation has been a line. We had an input variable, and an output variable.
+
+      => y = w1.x + w2
+
+	  But what if we had two inputs to the function? It will be a 3-dimensional space then. A line won't do here.
+	  We have to draw a plane rather than a line because our points are lying in a three-dimensional space now. So, now
+	  will rather have
+
+	  => x = w1.x + w2.y + w3
+
+      Speaking more generally, our prediction will be an n-1 dimensional hyperplane sitting in an n-dimensional space.
+	  It sure is hard to think of an n-dimensional space. Try rather think of a linear equation with n variables
+	  (or n-terms).
+
+	  => y' = w1.x1 + w2.x2 + w3.x3 ... wn
+
+	  We do the exact same thing we did to the two-variable / dimensions => Find out all w's (using whichever your trick
+	  you picked - mean or absolute) or use MSE or MAE - and minimize using Gradient Descent.
+
+    #TODO
+    (Optional) Closed form solution: Please do it at a better time
+
+    Polynomial Regression: Non-linear regression - i.e. cases when a model cannot fit the data using a straight line but
+    rather a curved or wavy line. In these cases we use higher degree polynomials. The techniques of regression, however,
+    remain the same.
+
+    For example:
+
+    y' = w1. x^3 + w2. x^2 + w3.x + w4
+
+    But technique is the same.
+    1. We take the MSE or MAE and
+    2. Derivate the equation w.r.t to all 4 weights (the ws) and
+    3. Gradient Descent to use these 4 weights to minimize the error.
+
+    L1 and L2:
+    Summary1: Punish the more fitting and more complex (even though it may have less error) by addding the 'complexity'
+    to the error function. For instance, adding the absolute values of the coefficients of the terms used
+    (except the constants).
+
+    Summary2: Steer the level of 'punishment' through a multiplier lambda according to your situation.

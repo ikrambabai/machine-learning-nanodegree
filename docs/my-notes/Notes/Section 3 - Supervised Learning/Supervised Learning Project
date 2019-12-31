@@ -1,0 +1,91 @@
+--------------------------------- Project  (Major learning points) -------------------------------------
+  Highlights:
+  A. Prep / Preprocess Data:
+     1. See the data carefully.
+
+     2. Normalize Skewed data:
+        Find out the highly skewed columns - logarithmically transform to reduce range of values for better performance
+        by the learning algorithm
+
+     3. Normalize Numerical features:
+        Find out features that have 'categorical' data (lookups in db terms). Transform those string lookups to integral
+        values for better performance by the learning algorithms. Typically, this is done via 'One-hot encoding' scheme.
+        This is also termed as 'applying scaling' on the data. See pd.get_dummies() on how columns are added
+        automatically based on the distribution on the fields you normalized.
+
+     4. Just like with feature - we should normalized the target variable too. So instead of strings like '>50K' and
+        '<=50K', we use 1 and 0. (note, we do not have to use get_dummies for this simpler normalization. Just replace
+        the strings with integers and throw it over to a variable.
+
+   B. Evaluated Model Performance:
+       1. Naive Predictor
+       2. Your choice1.
+       3. Your choice2.
+       4. Your choice3.
+
+  Details (see also notes from previous section on accuracy, precision and recall):
+    Compute the size of a dataframe
+      --> len(data.index)
+    Compute the records with condition
+      rows_with_n_greater_than_50k = data.apply(lambda x: True if x['income'].lower() == '>50k' else False , axis=1)
+      n_greater_50k = len(rows_with_n_greater_than_50k[rows_with_n_greater_than_50k == True].index)
+
+    Highly skewed features must be normalized or else the learning algorithms won't perform well.
+    =>skewed --> columns with data spread all over a huge range but concentrated mainly around famous 'values'. Use the
+    famous values rather than the original values.
+
+    This 'normalization' is done through a famous technique 'logarithmic transformation'
+    income_raw = data['income']
+    features_raw = data.drop('income', axis = 1)
+
+    #Visualize the original 'data' here to see the value (x-axis) spreads around thousands of values for two columns
+    #capital-gain and capital-loss.  This make the learning algos slow.
+    vs.distribution(data)
+
+    # Side Question on the above function:
+    Is it feature of this 'distribution()'' function that prints just the skewed columns? There is no
+    mention or input to this function that tell is to print these two columns. So it must be  'intelligent'
+    enough to consider just the graphs for the skewed columns only.
+
+    skewed = ['capital-gain','capital-loss']
+    features_log_transformed = pd.Dataframe(features_raw)
+    features_log_transformed [skewed] = features_raw[skewed].apply(lambda x: np.log(x+1))
+
+    #visualize again now and see how the values (x-axis) are spread only in 10's instead of thousands.
+    vs.distribution(features_log_transformed, transformed = True)
+
+    # Side Question ... hmm, see the 'Transformed = True' parameter to the distribution function. Interesting !!!
+
+    Question1:
+         For Naive base, the model always predicts 1 (makes >=50K). So there are no Negatives (false or true).
+         Accuracy and precision are the same ... and Recall is always 1.
+
+         Recall the formulas.
+         a. Accuracy --> "How often our model makes the correct prediction."
+            Accuracy = (True Positive + True Negative) / Total
+
+         b. Precision --> "What portion of messages identified as spam were actually spam"?
+            Precision = True Positive / Actual results
+            OR => True Positive / (True Positive + False Positive)
+
+         c. Recall --> "What portion of messages that were actually spam WERE actually identified by us as spam?"
+            Recall = True Positive / Predicted Results
+            OR => True Positive / (True Positive + False Negative)
+
+         + ------------------ + ------------------------------------- +
+         |          \ Reality | Actually          | Actually          |
+	     |           \        | Made              | doesn't make      |
+	     | Prediction \       | >50K              | >50K              |
+	     + ------------------ + ----------------- + ----------------- +
+	     | Predicted          |                   |                   |
+	     | Makes >50K         |        0          |       10          | --> 10 predicted to be non-spam
+	     |                    |                   |                   |     so all are False Positive
+	     + ------------------ + ----------------- + ----------------- +
+	     | Predicted doesn't  |                   |                   |
+	     | make >50K          |        0          |       0           | --> 90 predicted as non-spam, including
+	     |                    |                   |                   |     2 that were spam (and False Negative)
+	     + ------------------ + ----------------- + ----------------- +
+	                                    |                   |
+	                                    V                   V
+	                             Actual >50K         Actual Not >50K
+

@@ -1,0 +1,208 @@
+Medical - Potential Patient (Sick/Healthy) Diagnosed Sick or Healthy
+  -- True Positive, True Negative, False Positive, False Negative
+  -- i.e. The Confusion Metrics
+
+Accuracy:
+  -- Generic Formula (Correctly Diagnosed / Total)
+
+           + ------------------ + ------------------------------------- +
+         |          \ Reality |                   |                   |
+	     |           \        |    Has disease    |   Doesn't have    |
+	     | Prediction \       |                   |   disease         |
+	     + ------------------ + ----------------- + ----------------- +
+	     |                    |    True           |    False          |
+	     |   Has disease      |    Positive       |    Positive       |
+	     |                    |   (desirable)     |  (not desirable)  |
+	     + ------------------ + ----------------- + ----------------- +
+	     |                    |    False          |    True           |
+	     |   Doesn't have     |    Negative       |    Negative       |
+	     |   disease          |  (not desirable)  |  (desirable)      |
+	     + ------------------ + ----------------- + ----------------- +
+
+
+  -- Doesn't always make sense though (Medical Model vs Spam Email Model)
+	 --> Medical case: Make sure all sickest patients are diagnosed, no matter if we incorrectly diagnose healthy as
+	     sick while doing so. This makes sure we won't miss any sick patient.
+
+	     Correct Question for Model: Out of all patients diagnosed, find those which were diagnosed as sick
+	     (accurately or not). Write in terms of FP, FN etc here.
+
+         + ------------------ + --------------------- + ---------------------- +
+         |          \ Reality |                       |                        |
+	     |           \        | Has disease           | Doesn't have           |
+	     | Prediction \       |                       | disease                |
+	     + ------------------ + --------------------- + ---------------------- +
+	     |                    | Patient with          | Patient with no        |
+	     | Has disease        | disease diagnosed     | disease diagnosed      |   Notice: What is desirable and what
+	     |                    | as patients correctly | as patient incorrectly |           is not in this case.
+	     |                    | (desirable)           | (desirable)            |
+	     + ------------------ + --------------------- + ---------------------- +
+	     |                    | Patient with          | Patients with          |
+	     | Doesn't have       | disease mis-diagnosed | disease diagnosed      |
+	     | disease            | as healthy            | as patients correctly  |
+	     |                    | (not desirable)       | (not desirable)        |
+	     + ------------------ + --------------------- + ---------------------- +
+
+	      Tip:
+	      If prediction matches reality, its not a clash - start with True, else if there is a clash, start with False.
+	      If the prediction's was YES, its a positive, else its a negative.
+
+
+	      TP: We predicted a YES and it WAS a yes.
+	      TN: We predicted a NO and it was a NO.
+
+	      FP: We predicted a YES and it was a NO.
+	      FN: We predicted a NO and it was a Yes.
+
+	      So it is safer to consider all those that were diagnosed as sick as the basis of the model
+
+	      i.e. Look patients
+	      => (TP + FP) / total
+
+	 --> Span Email Detector: Make sure good emails never go to the Spam folder and get deleted - no matter even if some
+	     spam emails made their way to Inbox. Inconvenient, but at least my good emails are not lost.
+
+	     Correct Question for Model: Out of all the emails receive, how many were CORRECTLY marked as NOT SPAM
+		 Write in terms of FP,FN etc here.
+
+         + ------------------ + ------------------------------------- +
+         |          \ Reality |                   |                   |
+	     |           \        |       Spam        | Not Spam          |
+	     | Prediction \       |                   |                   |
+	     + ------------------ + ----------------- + ----------------- +
+	     |                    | Spam email        | Good email        |
+	     |       Spam         | Considered spam   | Considered spam   |
+	     |                    | (desirable)       | (not desirable)   |
+	     + ------------------ + ----------------- + ----------------- +
+	     |                    | Spam email        | Good email        |
+	     |      Not Spam      | considered good   | Considered good)  |
+	     |                    | (not desirable)   | (desirable)       |
+	     + ------------------ + ----------------- + ----------------- +
+
+         Look out for all that are predicted to be Not Spam (correctly predicted or not)
+         => (FP + FN) / total
+
+	 --> So th generic formula cannot be used for both cases
+	 --> So whats medical case model's accuracy formula? What about Spam email detector one?
+	     For this, we need to understand what is accuracy, recall and F scores.
+
+Accuracy <------------------------------------> Recall
+
+=> Precision means the percentage of your results which are relevant.
+=> Recall refers to the percentage of total relevant results correctly classified by your algorithm.
+
+Important Formulae:
+
+         + ------------------ + ------------------------------------- +
+         |          \ Reality |                   |                   |
+	     |           \        | Actual Spam       | Actual Non-Spam   |
+	     | Prediction \       |                   |                   |
+	     + ------------------ + ----------------- + ----------------- +
+	     |                    |    True           |    False          |
+	     | Predicted Spam     |    Positive       |    Positive       |
+	     |                    |                   |                   | --> sum of this row is the # of messages
+	     + ------------------ + ----------------- + ----------------- +     that were predicted by us as spam.
+	     |                    |    False          |    True           |
+	     | Predicted Non-Spam |    Negative       |    Negative       |
+	     |                    |                   |                   |
+	     + ------------------ + ----------------- + ----------------- +
+	                                  |
+	                                  V
+	            sum of this columns is the actual Spam messages in total
+
+
+TP + FN = All those messages that were ACTUALLY spam.
+TP + FP = All those messages that were predicted to be spam.
+TP + TN = All those messages that were correctly identified as spam or non-spam.
+
+a. Accuracy --> "How often our model makes the correct prediction."
+    Accuracy = (True Positive + True Negative) / Total
+
+b. Precision --> "What portion of messages identified as spam were actually spam"?
+    Precision = True Positive / Actual results
+          OR => True Positive / (True Positive + False Positive)
+
+c. Recall --> "What portion of messages that were actually spam WERE actually identified by us as spam?"
+    Recall = True Positive / Predicted Results
+       OR => True Positive / (True Positive + False Negative)
+
+
+Example:
+
+Out of 100 emails, 30 were actually spam, 70 were non-spam.
+We predicted 35 emails as spam - 7 of which were not really spam.
+
+         + ------------------ + ------------------------------------- +
+         |          \ Reality |                   |                   |
+	     |           \        | Actual Spam       | Actual Non-Spam   |
+	     | Prediction \       |                   |                   |
+	     + ------------------ + ----------------- + ----------------- +
+	     |                    |                   |                   |
+	     | Predicted Spam     |        28         |         7         |
+	     |                    |                   |                   | --> sum of this row is the # of messages
+	     + ------------------ + ----------------- + ----------------- +     that were predicted by us as spam.
+	     |                    |                   |                   |
+	     | Predicted Non-Spam |        2          |        63         |
+	     |                    |                   |                   |
+	     + ------------------ + ----------------- + ----------------- +
+	                             |
+	                             V
+	            sum of this columns is the actual Spam messages in total
+
+Accuracy = (28 + 63) / 100 = 91%
+Precision = 28 / (28 + 7) = 80%
+Recall = 28 / (28 + 2)  = 93%
+
+Example2:
+
+We have 100 emails - Only two of the emails are spam, 98 are not. Accuracy won't be a good fit here.
+
+         + ------------------ + ------------------------------------- +
+         |          \ Reality |                   |                   |
+	     |           \        | Actual Spam       | Actual Non-Spam   |
+	     | Prediction \       |                   |                   |
+	     + ------------------ + ----------------- + ----------------- +
+	     |                    |                   |                   |
+	     | Predicted Spam     |        0          |       10          | --> 10 predicted to be non-spam
+	     |                    |                   |                   |     so all are False Positive
+	     + ------------------ + ----------------- + ----------------- +
+	     |                    |                   |                   |
+	     | Predicted Non-Spam |        2          |       88          | --> 90 predicted as non-spam, including
+	     |                    |                   |                   |     2 that were spam (and False Negative)
+	     + ------------------ + ----------------- + ----------------- +
+	                                    |                   |
+	                                    V                   V
+	                             Actual Spams(2)      Actual non-spam (98)
+
+Conclusion:
+Accuracy = (0 + 88) / 100 = 88% -- hmm, great accuracy score - but made blunders above in predictions.
+
+This is when precision and recall come in handy (actually their combined effect in F scores).
+
+Fb = (1+b^2) (precision * recall) / (b^2*precision) + recall
+
+Note: when beta (b) is .5, more emphasis is placed on precision than on recall. So F0.5 scores will emphasise more on
+precision than recall.
+
+See good article from a log analytics perspective: https://towardsdatascience.com/precision-vs-recall-386cf9f89488
+
+
+
+Summary: You can tell more accuracy comes with lesser recall and more recall comes with less accuracy. We cannot maximise
+one versus the other. There is a third metric called F scores that we can instead use. F Scores are the harmonic means
+of accuracy and recall. Therefore in many cases, maximising this F score will be a good idea.
+
+F1 Scores --> 2 (prediction.accuracy) / prediction + accuracy
+F scores fall In the center of accuracy an recall.
+
+But again, it shouldn't be a blind case. In many cases you would want to just reply on either accuracy or recall. You
+do not necessarily want to pick an F score. Every case is different.
+
+Answers: In medical case example, maximizing recall is more important that accuracy.
+         In email example, maximising accuracy is more important than recall.
+         How about F scores for each? hmmm ...
+
+F(beta) Scores (1, 0.5, 2 etc) --> (1 + beta_squared)(prediction.recall) / ((beta_squared * precision) + recall)
+Characteristic: Gives the average value - but gets low when either Accuracy or Recall is low
+
+Pick F-beta that fits your needs (F0.25, F0.5, F8 etc)

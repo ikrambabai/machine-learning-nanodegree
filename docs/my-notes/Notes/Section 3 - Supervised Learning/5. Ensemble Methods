@@ -1,0 +1,35 @@
+Bagging:
+  1. Train multiple 'weak' learners on separate parts of the data.
+  2. Combine all trainers's output to get one stronger learner.
+
+Boosting (Based on Adaboost algorithm):
+  1. Assign weights to each learner's points (correct vs incorrect points)
+  2. Combine the learners to get one stronger learner
+
+         y = ln (accuracy/1-accuracy) or
+         y = ln (#correct points)/(#incorrect points)
+
+                                  y
+
+                 |                |              x | (Good Predictors)
+                 |                |              x |  #Always say the truth
+                 |                |              x |
+                 |                |              x |
+                 |                |             x  |
+                 |                |           x    |
+                 |                |       x        |
+                 | -1           0 |   x            | 1
+       ----------|----------------x----------------|------ x
+                 |               x|(Bad Predictors)|
+                 |           x    | #Half Truth &  |
+                 |       x        | #Half lies     |
+                 |   x            |                |
+                 | x              |                |
+                 |x               |                |
+                 |x               |                |
+                 |x               |                |
+
+             ('Good' Predictors)
+             #Always say the lie - but we do the inverse of it.
+
+
