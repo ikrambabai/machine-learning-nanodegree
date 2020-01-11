@@ -3,8 +3,11 @@ Bagging:
   2. Combine all trainers's output to get one stronger learner.
 
 Boosting (Based on Adaboost algorithm):
-  1. Assign weights to each learner's points (correct vs incorrect points)
+  1. Assign weights to each learner's points (correctly predicted vs incorrectly predicted ones points)
   2. Combine the learners to get one stronger learner
+  3. To assign weights to good and bad learners, ln() is the best function. Note, a learner that always tells the truth
+     is as good as the one that always lies (because we can do the reverse of that - the worse ones are those that lie
+     half the time and tell truth the other half).
 
          y = ln (accuracy/1-accuracy) or
          y = ln (#correct points)/(#incorrect points)

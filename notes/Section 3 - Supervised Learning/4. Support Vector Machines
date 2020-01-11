@@ -1,0 +1,4 @@
+1. Draw line between two groups of points
+2. The should be as far away from the neighbouring points as possible. More than one line may separate the two groups
+   but the better one is the one that separates it so that the distance between the line and the neighbouring points is
+   minimized.

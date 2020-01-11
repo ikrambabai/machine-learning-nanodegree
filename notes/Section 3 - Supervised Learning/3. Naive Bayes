@@ -1,0 +1,11 @@
+Naive Bayes: Called so because of two reasons.
+
+   1. Because no assumption is made on the relation between the 'features'. The 'temperature' being HOT has got nothing
+      to do with the 'humidity'. It is assumed that each feature contributes completely independently to the outcome (of
+      'play-golf' for example).
+
+   2. Secondly, it is further naive because it assumes every feature in the feature-set contributes equally to the
+      outcome and that the outcome cannot be reached if any of the features are missing in any instance (a single row of
+      in a dataset) of the training data. Every feature is weighed equally and must be present in each row to contribute
+      to the training.
+

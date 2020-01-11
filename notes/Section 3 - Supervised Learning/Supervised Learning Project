@@ -89,3 +89,30 @@
 	                                    V                   V
 	                             Actual >50K         Actual Not >50K
 
+    Question2: Supervised machine learning models.
+      Supervised Machine Learning:
+        -- You know what features to train the data on.
+        -- Generally, the data is prepared by the expert and the features the training is needed on are mentioned to the
+           classifier.f
+           What can go wrong with the data?
+
+           1. Noise: when come instances of the training data do not have the expected values.
+               -- outlier (noise) detection - some area of research.
+
+           2. Missing values. Researchers seem to be busy dealing with this issue too .. hmm. But basically, it means
+              that the data for some features are totally missing for some instances (rows) of the training data.
+
+           3. The are features in the data that are irrelevant. Some folks are busy doing research in this area too to
+              draw meanings or new features from the existing non-relevant features.
+
+
+      Gaussian Naive Bayes (GaussianNB)
+      Decision Trees:
+         Good Articles: https://books.google.com/books?hl=en&lr=&id=vLiTXDHr_sYC&oi=fnd&pg=PA3&dq=supervised+machine+learning&ots=CYrzutYIkm&sig=cNVv6QKZChFta3YjleaPjzrzQBs#v=onepage&q=supervised%20machine%20learning&f=true
+         Good Video: https://www.youtube.com/watch?v=7VeUPuFGJHk
+
+      Ensemble Methods (Bagging, AdaBoost, Random Forest, Gradient Boosting)
+      K-Nearest Neighbors (KNeighbors)
+      Stochastic Gradient Descent Classifier (SGDC)
+      Support Vector Machines (SVM)
+      Logistic Regression
