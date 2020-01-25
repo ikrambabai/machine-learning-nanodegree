@@ -17,11 +17,12 @@
         '<=50K', we use 1 and 0. (note, we do not have to use get_dummies for this simpler normalization. Just replace
         the strings with integers and throw it over to a variable.
 
-   B. Evaluated Model Performance:
+   B. Evaluated Model Performance (picked the following three in addition to the default 'Naive Predictor':
        1. Naive Predictor
-       2. Your choice1.
-       3. Your choice2.
-       4. Your choice3.
+
+       2. Decision Trees.
+       3. K-Nearest Neighbour.
+       4. Support Vector Machines.
 
   Details (see also notes from previous section on accuracy, precision and recall):
     Compute the size of a dataframe
@@ -90,10 +91,12 @@
 	                             Actual >50K         Actual Not >50K
 
     Question2: Supervised machine learning models.
+     Good Articles: https://books.google.com/books?hl=en&lr=&id=vLiTXDHr_sYC&oi=fnd&pg=PA3&dq=supervised+machine+learning&ots=CYrzutYIkm&sig=cNVv6QKZChFta3YjleaPjzrzQBs#v=onepage&q=supervised%20machine%20learning&f=true
       Supervised Machine Learning:
         -- You know what features to train the data on.
         -- Generally, the data is prepared by the expert and the features the training is needed on are mentioned to the
-           classifier.f
+           classifier.
+
            What can go wrong with the data?
 
            1. Noise: when come instances of the training data do not have the expected values.
@@ -105,14 +108,11 @@
            3. The are features in the data that are irrelevant. Some folks are busy doing research in this area too to
               draw meanings or new features from the existing non-relevant features.
 
-
       Gaussian Naive Bayes (GaussianNB)
       Decision Trees:
-         Good Articles: https://books.google.com/books?hl=en&lr=&id=vLiTXDHr_sYC&oi=fnd&pg=PA3&dq=supervised+machine+learning&ots=CYrzutYIkm&sig=cNVv6QKZChFta3YjleaPjzrzQBs#v=onepage&q=supervised%20machine%20learning&f=true
-         Good Video: https://www.youtube.com/watch?v=7VeUPuFGJHk
-
+        Good Video: https://www.youtube.com/watch?v=7VeUPuFGJHk
       Ensemble Methods (Bagging, AdaBoost, Random Forest, Gradient Boosting)
-      K-Nearest Neighbors (KNeighbors)
+      K-Nearest Neighbors (K-Neighbors)
       Stochastic Gradient Descent Classifier (SGDC)
       Support Vector Machines (SVM)
       Logistic Regression
