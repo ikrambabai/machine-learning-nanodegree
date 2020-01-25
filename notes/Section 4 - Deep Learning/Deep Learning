@@ -351,6 +351,27 @@ Classification Problems:
            In multilayer perceptron, it translates to
         backprogogation:
           - do feedforward operation
-          -    
+          -
+
+       Regularization
+         L1 regularization
+         L2 regularization
+       Dropout layer:
+         ??? -- the probability that any node in the NN is removed during training.
+       Batch vs Stochasit Gradiant Descent
+         Stochastic works on a subset of data but takes multipe steps than just one like in Gradiant Descent.
+       Learning rate ... keep it low if your model cannot learn good
+       Momentum
+       Other Optimizer:
+         Others?
+       Other Activation Functions:
+         RelU --> negative to zero, positives leave alone -- max(0, a)
+           Relu functions solves the issue with the problem of diminishing gradients.
+
+  Convolutional Neural Networks:
+
+
+
+
 
 

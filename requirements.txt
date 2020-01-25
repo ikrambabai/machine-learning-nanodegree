@@ -2,13 +2,6 @@
 # - a tool like pip can use this file to install your dependencies
 
 # titanic project related dependencies
-Flask
-flask-restful
-markdown
-pandas
-
-# boston_housing project related dependencies
-numpy
-pandas
-matplotlib
-scikit-learn
+keras
+tensorflow
+freetype
