@@ -363,13 +363,78 @@ Classification Problems:
        Learning rate ... keep it low if your model cannot learn good
        Momentum
        Other Optimizer:
-         Others?
+         SGD, Momentum, NAG, Adagrad, Adadelta, Rmsprop
        Other Activation Functions:
          RelU --> negative to zero, positives leave alone -- max(0, a)
            Relu functions solves the issue with the problem of diminishing gradients.
 
   Convolutional Neural Networks:
+    Categorical Cross Entropy loss:
+      less loss when the model says what the label says,
+      More loss when the model says something other than the label says.
 
+      Training decisions: Many decisions to make when deciding the 'architecture' of the model.
+        How many layers to pick?
+        How many node in each layer to pick?
+        How many ephocs to pick.
+
+      Data:
+        Training Data: <-- only look at this when deciding the weights.
+        Validation Data: <-- only to validate if we are going in the right direction. Therefore validation can tell us
+                    how we are doing on the overfitting.
+
+                    ^
+                    |
+                    |
+                    | .                       x  x   x   x  validation loss
+                    |  .                   x
+               loss | x .               x
+                    |  x  .           x
+                    |    x  .      x
+                    |       x   x.   .  .  . . . training loss
+                    +----------|---------------------------------------->
+                              100                                epochs
+
+            Notice evidence of overfitting around epochs > 100 - we would just want to stop at the epoch
+            where the validation loss elevates from the training loss.
+
+        Test Data:
+
+       MLP Vs. CNN:
+         1.
+         fully connected - on our 28x28 size db, the number of parameters went up to .5 million already.
+         Imagine how MLPs will grow with other bigger / real world images. CNNs will be sparsely connected because
+         we not every node in the image really has to 'see' or be responsible for ALL nodes coming in from the input
+         layer. May be just the first 4x4 quadrant of a 16x16 image? This is more 'locally-connected' layer than the
+         MSPs fully connected nodes.
+
+         2.
+         Accepts only vectors as input, not matrices. So an image representing 5 was basically broken into one row
+         and fed to MLP - This means we went from 2D to 1D loosing very precious spatial information on where the
+         data actually WAS that was fed to the MLP. CNNs know the location of the image
+
+         Convolutional layer height and width: Size of filter
+         Strides and padding: What happens to the edge where the filter may run over the end / edge of the image?
+           Use or not use the padding (padding = 'valid' vs padding = 'same' - in 1, you throw away the nodes that
+           couldn't get all of its nodes to contribute because it was at the edge of the image. In 2nd case, you did
+           padding already to prep for such situation and DO take the those hidden nodes into consideration that would
+           have been thrown otherwise.
+
+         Pooling layers:
+           Help reduce dimensionality by reducing the feature map from previous conv layer to next pooling layer.
+           Conv Layer --> Pooling layer --> Conv layer --> so on.
+           Help reduce the dimensionality of the filters (to avoid overfitting).
+           Pooling layer types:
+             Max Pooling layer: >> Take feature map as input (each resp for identifying a pattern). Reduce the size of
+               the feature by half by reducing all the features to the max only. So a 2x2 section of the 4x4 feature will
+               output one value - the max of the 4 - each of the 2x2 will output one max resulting in 4 numbers from the
+               16 original effectively reducing the dimension by 4 times. This is done by specifying window size and stride.
+
+             Global Average Pooling layer:
+               Same as above, but now instead of max, it goes by the average of all the numbers in that section. For
+               this type of pooling, we do not specify the stride or the window size - its extreme on dimensionality reduction
+               because it takes the average of the whole feature map - so a 4x4 feature map of 16 value will be reduce to
+               a single value - So a 3D array will be converted to a vector.
 
 
 
