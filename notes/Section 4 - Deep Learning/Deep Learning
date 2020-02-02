@@ -358,7 +358,7 @@ Classification Problems:
          L2 regularization
        Dropout layer:
          ??? -- the probability that any node in the NN is removed during training.
-       Batch vs Stochasit Gradiant Descent
+       Batch vs Stochastic Gradiant Descent
          Stochastic works on a subset of data but takes multipe steps than just one like in Gradiant Descent.
        Learning rate ... keep it low if your model cannot learn good
        Momentum
