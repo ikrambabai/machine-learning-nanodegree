@@ -100,16 +100,15 @@ Important Formulae:
 	     + ------------------ + ----------------- + ----------------- +
 	     |                    |    True           |    False          |
 	     | Predicted Spam     |    Positive       |    Positive       |
-	     |                    |                   |                   | --> sum of this row is the # of messages
+	     |                    |    (TP)           |    (FP)           | --> sum of this row is the # of messages
 	     + ------------------ + ----------------- + ----------------- +     that were predicted by us as spam.
 	     |                    |    False          |    True           |
 	     | Predicted Non-Spam |    Negative       |    Negative       |
-	     |                    |                   |                   |
+	     |                    |    (FN)           |    (TN)           |
 	     + ------------------ + ----------------- + ----------------- +
 	                                  |
 	                                  V
 	            sum of this columns is the actual Spam messages in total
-
 
 TP + FN = All those messages that were ACTUALLY spam.
 TP + FP = All those messages that were predicted to be spam.
