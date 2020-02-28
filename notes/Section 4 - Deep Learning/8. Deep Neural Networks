@@ -1,0 +1,38 @@
+Deep Neural Network:
+Over impose multiple straight lines to come up with a curve. This idea is at the heart of Neural Networks.
+Calculate the prob of one point then apply the sigmoid functions.
+Also, you can assign weights to each point.
+
+One constant times another + another constant times another model --> probability
+
+Take Away:
+  So the idea is to assign weights to the outputs of each NN and add them together but before adding, figure out
+  what weights each of them should carry. A linear combination of the outputs of two neural networks.
+
+  Whenever you see a neural network constructed from multiple other networks, think of the "non linear"
+  boundaries defined from the linear combination of the two linear neural networks. Powerful.
+
+Way more complicated:
+  Input layer: Inputs (like x1, x2)
+  Hidden Layer: Set of all neural networks
+  Output layer: All linear networks combined in this layer to get non-linear output.
+
+  Many architectures (really cool - pictorially, it would have been great though):
+    a. If Hidden layer has 3 sets instead of two, we are talking about a triange instead of a curve.
+    b. If inputs can be more than 2 - meaning no more living in 2-dimensional, In this case, the hidden layer
+       shall have planes instead of lines, and the output layer shall have a 3-dimensional curved plane instead of
+       a straight plane.
+    c. What if the output layer has more modes than two? Now we are talking about multi class classification problem
+       The output layer will not have just one but 3 (for example) curved layers - one for each class (Cat, Dog, Bird exp).
+
+    d. (Cooler!!) What if we have more than one 'hidden layers' - So recall, the first layer had linear models,
+       them combined gave us a non-linear model like curves. Now if these curves also are combined together (hidden layers
+       more than 1), we will get even more complex curves than a simple curve (like an S share curve instead of a C shape curve - isn't it cool?0
+
+       This architecture is called Deep Neural Network. Name is cool too.
+
+       In real world applications like self-driving cars of game-playing agents, there are multiple layers like mentioned in the last point above
+       Many linear neural networks combined to come up with a very curvy and complex classification ... more complex than an S-shaped curve for example.
+
+    Ex: One (good) architechure that addresses the problem of identify the 26 upper case letters in English alphabet would require you to add 26 nodes into the
+    output layer. Other (bad) architecures may also work - but they may be overkills - like having 26 separate NN each telling us if a letter was , A, B, C etc.

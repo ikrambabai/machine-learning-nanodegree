@@ -1,0 +1,20 @@
+ How to train deep neural networks:
+    Training means coming up with weights on the edges.
+    FeedForward: --
+    backpropogation: Adjust weights when a point is misqualified.
+    Generally speaking,
+       Descent from Mount Averest:
+         a. Standing at a point, predict y^.
+         b. Calculate the error w.r.t W --> E(W),
+         c. then find out the (negative of) the gradient descent of the error (-D(E))
+            to find out what direction to go until error is negligible.
+
+       Same older formulae:
+         y^ = sigmoid (Wx + b)
+         E(W) = -1/m Summation {i --> 1 .. m (yi.ln(y^) + (1-yi)ln(1-y^))}
+         D(E) = (dE/dw1, ... dE/dwn, dE/db) <-- partial derivates of the error w.r.t weights (and the bias).
+
+       In multilayer perceptron, it translates to
+    backprogogation:
+      - do feedforward operation
+      -

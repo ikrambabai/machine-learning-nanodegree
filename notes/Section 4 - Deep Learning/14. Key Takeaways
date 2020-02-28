@@ -1,0 +1,25 @@
+Which activation function is more likely to cause a vanishing gradient?
+  a). Sigmoid (correct)
+  b). Tanh
+  c). Relu
+  d). None of the above
+
+If during the training of a neural network you notice that some of the nodes have very low weights and do not contribute
+much to the model, what approach could you take to solve this?
+  a). L1 Regularization
+  b). L2 Regularization
+  c). Dropout (correct answer)
+  d). Ensemble learning
+
+You have designed a CNN architecture for a classification task, and you notice that your model is overfitting.
+Which is most likely to reduce overfitting?
+
+  a). Add more filters to the conv layers (correct answer)
+
+What is the best way to ensure a CNN classifier is capable of detecting objects with various sizes and at different
+positions in image data?
+  a). More pooling layers?
+  b). Add, drop and remove relu activation layer?
+  c). Expand existing training and validation data through augmentation.
+
+

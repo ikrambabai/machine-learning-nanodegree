@@ -1,0 +1,31 @@
+Convolutional Neural Networks:
+Categorical Cross Entropy loss:
+  less loss when the model says what the label says,
+  More loss when the model says something other than the label says.
+
+  Training decisions: Many decisions to make when deciding the 'architecture' of the model.
+    How many layers to pick?
+    How many node in each layer to pick?
+    How many ephocs to pick.
+
+  Data:
+    Training Data: <-- only look at this when deciding the weights.
+    Validation Data: <-- only to validate if we are going in the right direction. Therefore validation can tell us
+                how we are doing on the overfitting.
+
+                ^
+                |
+                |
+                | .                       x  x   x   x  validation loss
+                |  .                   x
+           loss | x .               x
+                |  x  .           x
+                |    x  .      x
+                |       x   x.   .  .  . . . training loss
+                +----------|---------------------------------------->
+                          100                                epochs
+
+        Notice evidence of overfitting around epochs > 100 - we would just want to stop at the epoch
+        where the validation loss elevates from the training loss.
+
+    Test Data:

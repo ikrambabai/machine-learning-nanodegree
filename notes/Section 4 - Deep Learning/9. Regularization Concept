@@ -1,0 +1,16 @@
+Regularization
+ L1 regularization: ??
+ L2 regularization: ??
+Dropout layer:
+ ??? -- the probability that any node in the NN is removed during training.
+Batch vs Stochastic Gradiant Descent
+ Stochastic works on a subset of data but takes multiple steps than just one like in Gradiant Descent.
+Learning rate ... keep it low if your model cannot learn good
+Momentum
+Other Optimizer:
+ SGD, Momentum, NAG, Adagrad, Adadelta, Rmsprop
+Other Activation Functions:
+ RelU --> negative to zero, positives leave alone -- max(0, a)
+   Relu functions solves the issue with the problem of diminishing gradients.
+
+

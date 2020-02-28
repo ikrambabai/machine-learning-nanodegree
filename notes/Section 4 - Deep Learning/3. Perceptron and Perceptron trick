@@ -1,0 +1,90 @@
+  2. Perceptron Notation:
+
+     The above basically is a perceptron which works on a 'step function'. The step function basically says if the function
+     return >= 0 output yes, if the function says < 0 out put 0.
+
+     Pictoriaally (which I cannot draw here).
+
+                        . .              . .       / yes -> 1
+        x1 --w1---->  .     .          .     .    /
+        x2 --w2--->  .        .       .        . /
+        x3 --w3--->  .  Sum   .  -->  .  >=0?  . \
+        x4 --w4--->   .      .         .      .    \
+        b  ------->    . . .             . . .       \ no -> 0
+
+					  node         Step function
+
+     Representing logical operators as perceptrons:
+       AND:
+
+       OR:
+
+       XOR:
+
+       The elusive ?
+
+     Perceptron Trick:
+       Points misqualified would like the line come closer to them (or better, cross over them) so that the misqualified
+       point ends up in the right region.
+
+       Let
+       3x1 + 4x2 - 10 = 0
+       be the line.
+
+       The points over it have x1, x2 so that
+       3x1 + 4x2 - 10 > 0 --> blue area
+       and those under it have x1, x2 so that
+       3x1 + 4x2 - 10 < 0 --> red area.
+
+       Suppose there is a red point in the blue area and it is (4, 5). This point wants the line come closer to it or
+       move over it so the point ends up in the red area instead of blue. For this, (to move line closer to the point)
+       subtract points (4, 5) (and consider 1 for bias) from the components of the line above.
+
+       3    4   -10
+       4    5   -1
+       ----------------
+       -1   -1  -11
+
+       This will bring the line closer to the point (or may even cross it over). However, we generally take smaller steps
+       controlled through a "learning rate" parameter - lets say 0.1. We multiply this factor with the points of the line
+       before subtracting ... so the computation will become
+
+           3        4       -10
+       4*0.1    5*0.1   -1*0.1
+       -----------------------
+       2.5      3.5     -10.1
+
+        New line will therefore be
+
+       2.5x1 + 3.5x2 - 10.1 = 0
+
+       That's it. That's the Perceptron trick. Similarly, if a blue point was in red area, we would ADD (instead of subtracing)
+       the line points from the coeffients of the equation.
+
+     The Algorithm Psuedocode
+       So obviously line wont do in most cases. We have to use a curve.
+       How do we get that curve? We can use error functions to help us with that.
+       Gradient Descent helps us reduce the error as we already know. Our error functions have to be continous and diffrentiable.
+       Discrete vs. Continous:
+         Sigmoid function: Instead of saying student go accepted or rejected, we say the probability of acceptance of this student
+         is this much and of not being accepted is this much.
+         So instead of a STEP function, we use Sigmoid function. Formula is
+
+         sigmoid = 1/(1+e to the power -x)
+       So for a function
+       4x1 + 5x2 - 9 = 0
+       What is the value of sigmoid for (1,1)?
+
+        import math
+        def sigmoid(x):
+            return 1 / (1+math.exp(-x))
+
+        def step(x1, x2):
+            return 4*x1 + 5*x2 - 9
+
+       Ans: --> sigmoid(step(1, 1)
+       Or detailed.
+        (1, 1) --> 0 --> sigmod(0) = 0.5
+        (2, 4) --> 16 + 20 - 9 --> 19 --> sigmoid(27) --> 0.99
+        (5, -5) --> 20 - 25 - 9 --> -14 --> sigmoid(-14) --> 0.00000008
+        (-4, 5) --> -20 + 25 -9 --> -4 --> sigmoid(-4) --> 0.5

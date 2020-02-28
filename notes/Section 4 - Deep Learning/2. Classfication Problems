@@ -1,0 +1,19 @@
+Classification Problems:
+  1. Same old concepts like before. In a nutshell, we classify points on a plane by identifying a line that best
+     separates the two classes (or three), but lets start with 2 first. So may be is a line that
+     separates the data on a 2-dimensional plane with x1 as horizontal and x2 as vertical axis.
+
+     2x1 + 2x2 -18 = 0 means the point is on the line.
+     2x1 + 2x2 -18 > 0 means the point is above the line
+     2x1 + 2x2 -18 < 0 means the points below the line.
+
+     Instead of three case, we can combine th first two together.
+     2x1 + 2x2 -18 >= 0 : means the point is there in that class (for example student was enrolled)
+     2x1 + 2x2 -18 < 0 would me the point is not in that class (for example student was not enrolled)
+
+     Generally speaking
+
+     In vector form, an equation Wx + b where
+     W = [w1, w2, ... wn]
+     x = [x1, x2, ... xn]
+     b is called the bias.

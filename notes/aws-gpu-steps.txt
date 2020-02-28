@@ -1,0 +1,39 @@
+IMP: before everything, add jupyter group policy to the instance from EC2 instance.
+IMP: pip install tensorflow for latest tensorflow. Got issues with the installed one from requirements.
+IMP: chnage the following to (keras.blabla to tensorflow.keras.blabla)
+     from keras.applications.resnet50 import ResNet50
+     from tensorflow.keras.applications.resnet50 import ResNet50
+
+export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64
+KERAS_BACKEND=tensorflow python -c "from keras import backend"
+export CUDA_HOME=/usr/local/cuda
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
+
+jupyter notebook --generate-config
+sed -ie "s/#c.NotebookApp.ip = 'localhost'/#c.NotebookApp.ip = '*'/g" ~/.jupyter/jupyter_notebook_config.py
+
+pip install --upgrade ipykernel
+
+jupyter notebook --ip=0.0.0.0 --no-browser
+
+
+git clone https://github.com/udacity/dog-project.git
+cd dog-project
+
+mkdir dogImages
+cd dogImages
+wget https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip
+unzip dogImages.zip
+
+cd ..
+
+mkdir lfw
+cd lfw
+wget https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/lfw.zip
+unzip lfw.zip
+
+cd ..
+
+cd bottleneck_features
+wget https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/DogVGG16Data.npz
+

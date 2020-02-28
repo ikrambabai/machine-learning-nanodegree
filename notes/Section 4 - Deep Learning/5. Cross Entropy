@@ -1,0 +1,11 @@
+Cross Entropy:
+  Given a set of events and probabilties, what is
+  Sum of the Negative log of the probabilities.
+  Minimize Cross Entropy instead of increasing the probability.
+  The more the entropy of an event + probability combination, the worse the model and vice versa.
+
+  program:
+  def entropy(Y, P):
+    Y = np.float_(Y)
+    P = np.float_(P)
+    return -np.sum(Y * np.log(P) + (1 - Y) * np.log(1 - P))

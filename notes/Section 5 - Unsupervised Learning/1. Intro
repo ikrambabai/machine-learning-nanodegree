@@ -1,0 +1,30 @@
+Unsupervised learning comes in when: Data has no labels - but there are clusters and clumps in the data that we can
+learning something from.
+
+Concept of Clustering:
+  look at the data even though no labels and see how Katie and Sabastian rated the movies. I have no knowledge of what
+  the moves are about, but I can tell there are clusters in the liking (and disliking) of the moves by the two.
+
+  Sabastian
+          ^
+          |
+     Great|  x x x
+          |   x x x
+          |    x
+          |                   x
+          |
+          |                                        x x x x
+     Bad  |                                         x x x
+          |--------------------------------------------------- (Katie)
+               Bad                                  Great
+
+  Appartenlty, the two have a very different tate - but thats the pattern/clusters in data that we need to come up with
+  even thought it has no lables.
+
+THe K-Means Algo:
+  The most common algo is K-Means with unsupervised learning
+  Algo:
+    1. Assign: for each cluster, randomly choose a "center".
+    2. Optimize: Move the cluster center around by minimizing the total quadratic distance from the chose "center" to
+       the cluster points.
+

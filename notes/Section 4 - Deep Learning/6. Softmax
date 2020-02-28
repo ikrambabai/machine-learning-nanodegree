@@ -1,0 +1,74 @@
+One-hot encoding - assigning
+1. Numerical values to the string outputs.
+2. Outputs that have string meanings, we convert them to numerical.
+    I got a gift -- 1
+    I didn't get a gift -- 0.
+
+  But what about multi-class problems?
+
+  Animal is Beaver
+  Animal is Cat
+  Animal is dog
+
+  ?
+
+  May be use 0, 1, and 2 for the classes? But we cannot do that because that will create dependencies on the
+  classes which we do not want.
+
+  So instead we use multiple variables for each case with values still as 0 and 1 but each one now having their own column
+
+ ---------------------------------------------
+  Animal       Duck?       Beaver      Walrus
+ ---------------------------------------------
+  Duck          1           0             0
+  Beaver        0           1             0
+  Duck          1           0             0
+  Walrus        0           0             1
+  Beaver        0           1             0
+ ---------------------------------------------
+ One-hot encoding multi-class inputs
+Maximum Likelihood:
+Maximizing the probability that a point is falling in the correct category.
+
+Suppose X are apples and 0 are Oranges.
+
+Which one of the two models separting Xs from Zeros is better?
+
++-------------------------+		+-------------------------+
+|             01  .       |      |       .      01         |
+|            .            |      |         .               |
+|   x1    .               |      |   x1     .              |
+|    .              02    |      |           .       02    |
+| .     x2                |      |       x2   .            |
++-------------------------+      +-------------------------+
+      A). Bad Model						B). Good Model
+
+But from probability perspective, lets see how one is worse than the other:
+
+probability (all) should be maximized ... probability of the whole arrangement that we are interested in here.
+p(all) is the probability that the point is what it says it is based on the model. (product of all these
+probabilities). You wil get higher value for B than A. So that's why B is a better model (not just pictorially,
+but we just saw w.r.t probability as well.)
+
+But products are expensive - we must do additions instead. So we must convert products into sums. Sounds like
+we are talking about logs here (logs convert products to sums).
+
+Softmax function:
+
+So for the formula mentioned above,
+
+p(class i) = math.exp(zi) /(math.exp(z1) + math.exp(z1) ... math.exp(zn))
+
+For a given list of numbers as input, we will have their entropies as follows using the softmax function
+
+import numpy as np
+
+# Write a function that takes as input a list of numbers, and returns
+# the list of values given by the softmax function.
+def softmax(L):
+  expL = np.exp(L)
+  sumExpL = sum(expL)
+  result = []
+  for i in expL:
+      result.append(i*1.0/sumExpL)
+  return result

@@ -1,0 +1,16 @@
+Multiclass Problems:
+1. yes/no is not going to help with cases where classes more than 2. We need more answers than yes/no.
+2. with multiclass problems, we have chance of probabilty spread across 3 or more classes.
+3. These probabilities should still add up to one.
+4. So for each class, we get some sort of scoring. These scores have to be converted to probabilities.
+
+The formula for that is
+
+Given scores, z1, z2, ... zn, probability that the target is in class i is
+
+p(class i) = math.exp(zi) /(math.exp(z1) + math.exp(z1) ... math.exp(zn))
+That's how we turn scores into probabilities. This is called softmax function.
+
+So when we have two classes, we use sigmoid, when we have more classes, we use softmax function.
+TODO: Quiz
+16. Softmax - make sure you do the quiz.
